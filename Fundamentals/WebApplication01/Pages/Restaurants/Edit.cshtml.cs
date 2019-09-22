@@ -15,6 +15,7 @@ namespace WebApplication01.Pages.Restaurants
         private readonly IRestaurantData restaurantData;
         private readonly IHtmlHelper htmlhelper;
 
+        [BindProperty]
         public Restaurant Restaurant{ get; set; }
         public IEnumerable<SelectListItem> Cuisines { get; set; }
 
@@ -33,6 +34,17 @@ namespace WebApplication01.Pages.Restaurants
             {
                 return RedirectToPage("./NotFound");
             }
+            return Page();
+        }
+
+        public IActionResult OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+                restaurantData.Update(Restaurant);
+                restaurantData.Commit();
+            }
+            Cuisines = htmlhelper.GetEnumSelectList<CuisineType>();
             return Page();
         }
     }

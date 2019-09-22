@@ -32,8 +32,22 @@ namespace Fundamentals.Data
 
         public Restaurant Update(Restaurant updatedRestaurant)
         {
-            //Vido 4.4 at 2:29
+            var restaurant = restaurants.SingleOrDefault(r => r.Id == updatedRestaurant.Id);
+            if (restaurant!= null)
+            {
+                restaurant.Name = updatedRestaurant.Name;
+                restaurant.Location = updatedRestaurant.Location;
+                restaurant.Cuisine = updatedRestaurant.Cuisine;
+            }
+            return restaurant;
+
         }
+
+        public int Commit()
+        {
+            return 0;
+        }
+
         public IEnumerable<Restaurant> GetRestaurantsByName(string name=null)
         {
             return from r in restaurants
