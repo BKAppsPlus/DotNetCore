@@ -6,8 +6,10 @@ namespace Fundamentals.Data
 {
     public interface IRestaurantData
     {
-        IEnumerable<Restaurant> GetAll();
-
+        IEnumerable<Restaurant> GetRestaurantsByName(string name);
+        Restaurant GetById(int id);
+        Restaurant Update(Restaurant updatedRestaurat);
+        int Commit();
     }
 
     public class InMemotyRestaurantData : IRestaurantData
@@ -23,9 +25,19 @@ namespace Fundamentals.Data
                 new Restaurant { Id = 3, Name = "Vindalou", Location = "Riverside", Cuisine = CuisineType.Indian },
             };
         }
-        public IEnumerable<Restaurant> GetAll()
+        public Restaurant GetById(int id)
+        {
+            return restaurants.SingleOrDefault(r => r.Id == id);
+        }
+
+        public Restaurant Update(Restaurant updatedRestaurant)
+        {
+            //Vido 4.4 at 2:29
+        }
+        public IEnumerable<Restaurant> GetRestaurantsByName(string name=null)
         {
             return from r in restaurants
+                   where string.IsNullOrEmpty(name) || r.Name.Contains(name)
                    orderby r.Name
                    select  r;
         }
