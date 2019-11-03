@@ -1,8 +1,31 @@
 version: '3.4'
 
 services:
-  wincontainerapp:
-    image: ${DOCKER_REGISTRY-}wincontainerapp
+  orderssqlite:
+    image: ${DOCKER_REGISTRY-}orderssqlite
     build:
       context: .
-      dockerfile: WinContainerApp\Dockerfile
+      dockerfile: OrdersSQLite/Dockerfile
+
+  bkprojsqlserver:
+    links:  
+      - DockerMSSQL
+    image: ${DOCKER_REGISTRY-}bkprojsqlserver
+    build:
+      context: .
+      dockerfile: BKProjSqlServer/Dockerfile
+
+  DockerMSSQL:
+    image: microsoft/mssql-server-linux:2017-latest
+    hostname: 'DockerMSSQL'
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: "Borazjan11"
+    volumes:
+      - ./data/mssql:/var/opt/mssql3
+    ports:
+      - '1433:1433'
+    expose:
+      - 1433
+
+

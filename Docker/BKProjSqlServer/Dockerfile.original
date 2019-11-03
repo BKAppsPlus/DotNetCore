@@ -1,0 +1,19 @@
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.1-stretch-slim AS base
+WORKDIR /app
+
+
+FROM mcr.microsoft.com/dotnet/core/sdk:2.1-stretch AS build
+WORKDIR /src
+COPY ["BKProjSqlServer/BKProjSqlServer.csproj", "BKProjSqlServer/"]
+RUN dotnet restore "BKProjSqlServer/BKProjSqlServer.csproj"
+COPY . .
+WORKDIR "/src/BKProjSqlServer"
+RUN dotnet build "BKProjSqlServer.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "BKProjSqlServer.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "BKProjSqlServer.dll"]
