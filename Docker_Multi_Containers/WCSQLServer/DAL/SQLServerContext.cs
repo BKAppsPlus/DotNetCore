@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WC_SQLServer.Entities;
+using WCSQLServer.Entities;
 
-namespace WC_SQLServer.DAL
+namespace WCSQLServer.DAL
 {
     public class SqlServerContext : DbContext
     {

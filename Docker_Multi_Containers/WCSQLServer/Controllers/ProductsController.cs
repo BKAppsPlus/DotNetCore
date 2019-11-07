@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WC_SQLServer.DAL;
-using WC_SQLServer.Entities;
+using WCSQLServer.DAL;
+using WCSQLServer.Entities;
 
-namespace WC_SQLServer.Controllers
+namespace WCSQLServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

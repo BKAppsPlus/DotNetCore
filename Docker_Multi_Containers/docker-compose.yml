@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  wcsqlserver:
+    links:  
+      - sqlserverService  
+    image: ${DOCKER_REGISTRY-}wcsqlserver
+    build:
+      context: .
+      dockerfile: WCSQLServer\Dockerfile
+  
+  sqlserverService:  
+    image: microsoft/mssql-server-windows-developer:2017-latest
+    hostname: 'WCSQLServer1'  
+    environment:  
+      ACCEPT_EULA: Y  
+      SA_PASSWORD: "Borazjan11"  
+    volumes:  
+      - ./data/mssql:/var/opt/mssql3  
+    ports:  
+      - '1433:1433'  
+    expose:  
+      - 1433  
