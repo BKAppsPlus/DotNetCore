@@ -6,3 +6,13 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "49630:80"
+
+
+  wcsqlite:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "63143:80"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:C:\Users\ContainerUser\AppData\Roaming\ASP.NET\Https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets:ro

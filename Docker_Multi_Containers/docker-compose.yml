@@ -1,6 +1,13 @@
-version: '3.4'
+ersion: '3.4'
 
 services:
+
+  wcsqlite:
+    image: ${DOCKER_REGISTRY-}wcsqlite
+    build:
+      context: .
+      dockerfile: WCSQLite\Dockerfile
+
   wcsqlserver:
     links:  
       - sqlserverService  
@@ -15,8 +22,8 @@ services:
     environment:  
       ACCEPT_EULA: Y  
       SA_PASSWORD: "Borazjan11"  
-    volumes:  
-      - ./data/mssql:/var/opt/mssql3  
+    volumes:
+      - .\WCSQLServer\SQLData:C:\CLI
     ports:  
       - '1433:1433'  
     expose:  
